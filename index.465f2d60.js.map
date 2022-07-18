@@ -1,1 +1,0 @@
-{"mappings":"oeAAA,IAAAA,EAAAC,EAAA,S,YAGA,EAAAD,EAAAE","sources":["src/index.js"],"sourcesContent":["import { createRandomMarkup } from './js/randomFilms';\nimport './js/lightSwitch';\n\ncreateRandomMarkup();\n"],"names":["$jZsFh","parcelRequire","createRandomMarkup"],"version":3,"file":"index.465f2d60.js.map"}
