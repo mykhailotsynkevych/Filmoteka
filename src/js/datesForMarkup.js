@@ -8,6 +8,7 @@ export const createArrayOfGenres = () => {
 
 export const changeIdOfGenreToName = arrayOfResults => {
   const arrayIdOfGenres = arrayOfResults.map(el => el.genre_ids);
+  console.log(arrayIdOfGenres);
 
   for (let i = 0; i < arrayIdOfGenres.length; i++) {
     arrayIdOfGenres[i].forEach((el, index, array) => {
