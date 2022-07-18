@@ -15,10 +15,10 @@ const formEl = document.querySelector('#search-form');
 export const containerEl = document.querySelector('.cards-film_list');
 
 export const galleryApi = new GalleryApi();
-createArrayOfGenres();
 updateDataForLocalStorage();
 
 export const createRandomMarkup = () => {
+  createArrayOfGenres();
   galleryApi
     .fetchTrendingMovies()
     .then(data => {
