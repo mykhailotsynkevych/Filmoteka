@@ -5,10 +5,7 @@ import {
 } from './datesForMarkup';
 import { changePerPageOfQuery } from './perPageMediaRule';
 import { createAlertFailure } from './alert';
-import { onPosterClick } from './modal';
 import createFilmCards from '../templates/filmCards.hbs';
-
-export const formEl = document.querySelector('#search-form');
 
 export const onFormSubmit = event => {
   event.preventDefault();
@@ -36,7 +33,6 @@ export const onFormSubmit = event => {
       changeIdOfGenreToName(data.results);
       changeDateInArrayOfResults(data.results);
       containerEl.innerHTML = createFilmCards(data.results);
-      containerEl.addEventListener('click', onPosterClick);
     })
     .catch(error => createAlertFailure(error));
 };

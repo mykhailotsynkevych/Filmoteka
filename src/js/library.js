@@ -8,17 +8,11 @@ import { changeColorBtnLibraryClick } from './colorButton';
 const containerLibraryElement = document.querySelector('.library-film_list');
 const buttonWatchEl = document.querySelector('button[data-watched]');
 const buttonQueueEl = document.querySelector('button[data-queue]');
+containerLibraryElement.addEventListener('click', onPosterClick);
+buttonWatchEl.addEventListener('click', onButtonWatchEl);
+buttonQueueEl.addEventListener('click', onButtonQueueEl);
 
-// if (document.location.href === 'http://localhost:1234/library.html') {
-//   createMarkupLibraryMain();
-// }
-
-if (
-  document.location.href ===
-  'https://mykhailotsynkevych.github.io/Filmoteka/library.html'
-) {
-  createMarkupLibraryMain();
-}
+createMarkupWatchLocalStorage();
 
 function onButtonWatchEl(event) {
   changeColorBtnLibraryClick(event, buttonQueueEl);
@@ -30,9 +24,7 @@ function onButtonQueueEl(event) {
   createMarkupQueueLocalStorage();
 }
 
-function createMarkupLibraryMain() {
-  buttonWatchEl.addEventListener('click', onButtonWatchEl);
-  buttonQueueEl.addEventListener('click', onButtonQueueEl);
+function createMarkupWatchLocalStorage() {
   updateDataForLocalStorage();
   containerLibraryElement.innerHTML = '';
 
@@ -46,29 +38,11 @@ function createMarkupLibraryMain() {
       .then(data => {
         createMarkupForLibrary(data);
       })
-      .catch(error => createAlertFailure(error));
+      .catch(error => console.log(error));
   }
 }
 
-const createMarkupWatchLocalStorage = () => {
-  updateDataForLocalStorage();
-  containerLibraryElement.innerHTML = '';
-
-  if (galleryApi.watchArr.length === 0) {
-    createAlertFailure("You don't have watched films in your library");
-    return;
-  }
-  for (let i of galleryApi.watchArr) {
-    galleryApi
-      .fetchMovieById(i)
-      .then(data => {
-        createMarkupForLibrary(data);
-      })
-      .catch(error => createAlertFailure(error));
-  }
-};
-
-const createMarkupQueueLocalStorage = () => {
+function createMarkupQueueLocalStorage() {
   updateDataForLocalStorage();
   containerLibraryElement.innerHTML = '';
 
@@ -82,13 +56,12 @@ const createMarkupQueueLocalStorage = () => {
       .then(data => {
         createMarkupForLibrary(data);
       })
-      .catch(error => createAlertFailure(error));
+      .catch(error => console.log(error));
   }
-};
+}
 
 function createMarkupForLibrary(data) {
   data.release_date = data.release_date.split('-')[0];
   const markup = createLibraryCards(data);
   containerLibraryElement.insertAdjacentHTML('beforeend', markup);
-  containerLibraryElement.addEventListener('click', onPosterClick);
 }
