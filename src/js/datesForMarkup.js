@@ -12,6 +12,8 @@ export const changeIdOfGenreToName = arrayOfResults => {
 
   for (let i = 0; i < arrayIdOfGenres.length; i++) {
     arrayIdOfGenres[i].forEach((el, index, array) => {
+      console.log(el);
+      console.log(galleryApi.arrayOfGenres);
       const object = galleryApi.arrayOfGenres.find(genre => genre.id === el);
       array[index] = object.name;
     });
