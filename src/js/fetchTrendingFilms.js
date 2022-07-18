@@ -1,24 +1,26 @@
 import { GalleryApi } from './galleryApi';
-import { createAlertFailure } from './alert';
 import {
   changeIdOfGenreToName,
   changeDateInArrayOfResults,
   createArrayOfGenres,
-} from './datesForMarkup';
+} from './dataForMarkup';
 import { changePerPageOfQuery } from './perPageMediaRule';
 import { onPosterClick } from './modal';
-import { updateDataForLocalStorage } from './localStorage';
+import { updateDataForLocalStorage } from './itemsLocalStorage';
 import createFilmCards from '../templates/filmCards.hbs';
-import { onFormSubmit } from './inputFilms';
+import { onFormSubmit } from './searchFilms';
 
 const formEl = document.querySelector('#search-form');
 export const containerEl = document.querySelector('.cards-film_list');
 
 export const galleryApi = new GalleryApi();
-updateDataForLocalStorage();
 
-export const createRandomMarkup = () => {
+createRandomMarkup();
+
+function createRandomMarkup() {
+  updateDataForLocalStorage();
   createArrayOfGenres();
+
   galleryApi
     .fetchTrendingMovies()
     .then(data => {
@@ -32,6 +34,4 @@ export const createRandomMarkup = () => {
       formEl.addEventListener('submit', onFormSubmit);
     })
     .catch(error => console.log(error));
-};
-
-createRandomMarkup();
+}

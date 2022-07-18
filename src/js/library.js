@@ -1,8 +1,9 @@
-import { galleryApi } from './randomFilms';
+import ls from './localStorage';
+import { galleryApi } from './fetchTrendingFilms';
 import { onPosterClick } from './modal';
 import createLibraryCards from '../templates/libraryCards.hbs';
 import { createAlertFailure } from './alert';
-import { updateDataForLocalStorage } from './localStorage';
+import { updateDataForLocalStorage } from './itemsLocalStorage';
 import { changeColorBtnLibraryClick } from './colorButton';
 
 const containerLibraryElement = document.querySelector('.library-film_list');
@@ -28,11 +29,16 @@ function createMarkupWatchLocalStorage() {
   updateDataForLocalStorage();
   containerLibraryElement.innerHTML = '';
 
-  if (galleryApi.watchArr.length === 0) {
-    createAlertFailure("You don't have watched films in your library");
+  const arrayWatch = ls.load(`toWatch`);
+
+  if (arrayWatch.length === 0) {
+    const alertInfo = document.createElement('p');
+    alertInfo.classList.add('library_alert');
+    alertInfo.textContent = "You don't have watched films in your library";
+    containerLibraryElement.append(alertInfo);
     return;
   }
-  for (let i of galleryApi.watchArr) {
+  for (let i of arrayWatch) {
     galleryApi
       .fetchMovieById(i)
       .then(data => {
@@ -46,11 +52,16 @@ function createMarkupQueueLocalStorage() {
   updateDataForLocalStorage();
   containerLibraryElement.innerHTML = '';
 
-  if (galleryApi.queueArr.length === 0) {
-    createAlertFailure("You don't have films in queue in your library");
+  const arrayQueue = ls.load(`queue`);
+
+  if (arrayQueue.length === 0) {
+    const alertInfo = document.createElement('p');
+    alertInfo.classList.add('library_alert');
+    alertInfo.textContent = "You don't have films in queue in your library";
+    containerLibraryElement.append(alertInfo);
     return;
   }
-  for (let i of galleryApi.queueArr) {
+  for (let i of arrayQueue) {
     galleryApi
       .fetchMovieById(i)
       .then(data => {

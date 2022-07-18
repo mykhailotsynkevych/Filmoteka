@@ -1,8 +1,8 @@
-import { galleryApi, containerEl, createRandomMarkup } from './randomFilms';
+import { galleryApi, containerEl } from './fetchTrendingFilms';
 import {
   changeIdOfGenreToName,
   changeDateInArrayOfResults,
-} from './datesForMarkup';
+} from './dataForMarkup';
 import { changePerPageOfQuery } from './perPageMediaRule';
 import { createAlertFailure } from './alert';
 import createFilmCards from '../templates/filmCards.hbs';
