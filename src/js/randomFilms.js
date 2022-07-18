@@ -23,6 +23,7 @@ export const createRandomMarkup = () => {
     .fetchTrendingMovies()
     .then(data => {
       changePerPageOfQuery();
+      console.log('выполняется скрипт с home');
 
       changeIdOfGenreToName(data.results);
       changeDateInArrayOfResults(data.results);
