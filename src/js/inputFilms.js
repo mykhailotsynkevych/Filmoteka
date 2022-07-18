@@ -15,10 +15,7 @@ export const onFormSubmit = event => {
   changePerPageOfQuery();
 
   if (galleryApi.query === '') {
-    createRandomMarkup();
-    createAlertFailure(
-      'Sorry, your query is empty, please, make your choice. Below you can see the popular films.'
-    );
+    createAlertFailure('Sorry, your query is empty, please, make your choice.');
     return;
   }
 
@@ -26,8 +23,7 @@ export const onFormSubmit = event => {
     .fetchSearchMovies()
     .then(data => {
       if (data.results.length === 0) {
-        createRandomMarkup();
-        throw 'Sorry, there are not movies matching your search query. Please try again. Below you can see the popular films.';
+        throw 'Sorry, there are not movies matching your search query. Please try again.';
       }
 
       changeIdOfGenreToName(data.results);
