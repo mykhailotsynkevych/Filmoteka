@@ -1,0 +1,1 @@
+{"mappings":"gfAAA,IAAAA,EAAAC,EAAA,S,YAGA,EAAAD,EAAAE,sB","sources":["src/index.js"],"sourcesContent":["import { createRandomMarkup } from './js/randomFilms';\nimport './js/lightSwitch';\n\ncreateRandomMarkup();\n"],"names":["$4QITu","parcelRequire","createRandomMarkup"],"version":3,"file":"index.728dfa96.js.map"}
