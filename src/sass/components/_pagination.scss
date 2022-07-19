@@ -47,9 +47,22 @@
   background-image: url(../images/pagination/arrow_left.svg);
   background-repeat: no-repeat;
   background-position: center;
+  body.night & {
+    background-image: url(../images/pagination/ar_left_w.svg);
+  }
 }
 
 .move-btn-first,
 .move-btn-last {
   display: none;
 }
+.page-btn {
+  body.night & {
+    color: #fff;
+  }
+}
+// .move-btn &{
+//   body.night {
+//     background-image: url(../images/pagination/ar_left_w.svg);
+//   }
+// }
