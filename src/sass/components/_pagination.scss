@@ -40,6 +40,9 @@
   background-image: url(../images/pagination/arrow_right.svg);
   background-repeat: no-repeat;
   background-position: center;
+  body.night & {
+    background-image: url(../images/pagination/ar_right_w.svg);
+  }
 }
 
 .move-btn-prev {
@@ -61,8 +64,3 @@
     color: #fff;
   }
 }
-// .move-btn &{
-//   body.night {
-//     background-image: url(../images/pagination/ar_left_w.svg);
-//   }
-// }
