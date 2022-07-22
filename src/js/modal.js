@@ -14,6 +14,7 @@ export const onPosterClick = event => {
   galleryApi
     .fetchMovieById(event.target.id)
     .then(data => {
+      data.vote_average = data.vote_average.toFixed(1);
       modal.innerHTML = createModalCards(data);
       if (galleryApi.watchArr.includes(event.target.id)) {
         const buttonWatchedEl = modal.querySelector('[data-action="watched"]');

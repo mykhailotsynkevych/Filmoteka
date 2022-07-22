@@ -19,7 +19,7 @@ buttonQueueEl.addEventListener('click', onButtonQueueEl);
 
 export const cardsQuantity = 6;
 
-export const containerPagination = document.querySelector('.pagination');
+const containerPagination = document.querySelector('.pagination');
 export const paginationLibraryWatch = new Pagination(containerPagination, {
   itemsPerPage: cardsQuantity,
   visiblePages: 5,
