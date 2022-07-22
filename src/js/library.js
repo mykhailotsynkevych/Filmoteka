@@ -66,6 +66,7 @@ function onButtonQueueEl(event) {
 }
 
 function createMarkupWatchLocalStorage() {
+  containerPagination.style.display = 'flex';
   containerLibraryElement.innerHTML = '';
   alertInfo.innerHTML = '';
 
@@ -73,7 +74,7 @@ function createMarkupWatchLocalStorage() {
   const libEL = document.querySelector('.library_alert');
   if (!arrayWatch || arrayWatch.length === 0) {
     alertInfo.innerHTML = "You don't have watched films in your library";
-    containerPagination.remove();
+    containerPagination.style.display = 'none';
     return;
   }
 
@@ -84,6 +85,7 @@ function createMarkupWatchLocalStorage() {
 }
 
 function createMarkupQueueLocalStorage() {
+  containerPagination.style.display = 'flex';
   containerLibraryElement.innerHTML = '';
   alertInfo.innerHTML = '';
 
@@ -91,7 +93,7 @@ function createMarkupQueueLocalStorage() {
 
   if (!arrayQueue || arrayQueue.length === 0) {
     alertInfo.innerHTML = "You don't have films in queue in your library";
-    containerPagination.remove();
+    containerPagination.style.display = 'none';
     return;
   }
 
