@@ -1,4 +1,4 @@
-import { galleryApi } from './randomFilms';
+import ls from './storage';
 
 export const deleteFilmFromMarkup = event => {
   const watchedBtn = document.querySelector('button[data-watched]');
@@ -11,10 +11,10 @@ export const deleteFilmFromMarkup = event => {
     const filmForDelete = document.querySelector(
       `li[data-id = '${idForDelete}']`
     );
-    console.log(galleryApi.watchArr);
     filmForDelete.remove();
     const allFilms = document.querySelectorAll('li[data-action]');
-    if (allFilms.length === 0 && galleryApi.watchArr.length === 0) {
+    const arrayWatch = ls.load('toWatch');
+    if (allFilms.length === 0 && arrayWatch.length === 0) {
       document.querySelector('.library_alert').innerHTML =
         "You don't have watched films in your library";
     }
@@ -30,7 +30,8 @@ export const deleteFilmFromMarkup = event => {
     );
     filmForDelete.remove();
     const allFilms = document.querySelectorAll('li[data-action]');
-    if (allFilms.length === 0) {
+    const arrayQueue = ls.load('queue');
+    if (allFilms.length === 0 && arrayQueue.length === 0) {
       document.querySelector('.library_alert').innerHTML =
         "You don't have films in queue in your library";
     }
