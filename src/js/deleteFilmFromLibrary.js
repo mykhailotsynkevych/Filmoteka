@@ -1,3 +1,5 @@
+import { galleryApi } from './randomFilms';
+
 export const deleteFilmFromMarkup = event => {
   const watchedBtn = document.querySelector('button[data-watched]');
   const queueBtn = document.querySelector('button[data-queue]');
@@ -9,9 +11,10 @@ export const deleteFilmFromMarkup = event => {
     const filmForDelete = document.querySelector(
       `li[data-id = '${idForDelete}']`
     );
+    console.log(galleryApi.watchArr);
     filmForDelete.remove();
     const allFilms = document.querySelectorAll('li[data-action]');
-    if (allFilms.length === 0) {
+    if (allFilms.length === 0 && galleryApi.watchArr.length === 0) {
       document.querySelector('.library_alert').innerHTML =
         "You don't have watched films in your library";
     }
