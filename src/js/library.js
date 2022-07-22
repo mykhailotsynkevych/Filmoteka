@@ -9,10 +9,11 @@ import { updateDataForLocalStorage } from './localStorage';
 import { changeColorBtnLibraryClick } from './colorButton';
 
 const containerLibraryElement = document.querySelector('.library-film_list');
+const alertInfo = document.querySelector('.library_alert');
 const buttonWatchEl = document.querySelector('button[data-watched]');
 const buttonQueueEl = document.querySelector('button[data-queue]');
+
 containerLibraryElement.addEventListener('click', onPosterClick);
-const alertInfo = document.querySelector('.library_alert');
 buttonWatchEl.addEventListener('click', onButtonWatchEl);
 buttonQueueEl.addEventListener('click', onButtonQueueEl);
 
