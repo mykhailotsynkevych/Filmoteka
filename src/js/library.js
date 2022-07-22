@@ -17,10 +17,10 @@ containerLibraryElement.addEventListener('click', onPosterClick);
 buttonWatchEl.addEventListener('click', onButtonWatchEl);
 buttonQueueEl.addEventListener('click', onButtonQueueEl);
 
-const cardsQuantity = 6;
+export const cardsQuantity = 6;
 
-const containerPagination = document.querySelector('.pagination');
-const paginationLibraryWatch = new Pagination(containerPagination, {
+export const containerPagination = document.querySelector('.pagination');
+export const paginationLibraryWatch = new Pagination(containerPagination, {
   itemsPerPage: cardsQuantity,
   visiblePages: 5,
   centerAlign: true,
