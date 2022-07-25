@@ -8,8 +8,7 @@ export class GalleryApi {
   constructor() {
     this.page = 1;
     this.query = null;
-    this.perPage = null;
-    this.arrayOfGenres = null;
+    this.objectOfGenres = null;
     this.watchArr = [];
     this.queueArr = [];
     this.id = null;
@@ -19,7 +18,6 @@ export class GalleryApi {
     axios.defaults.params = {
       api_key: this.#API_KEY,
       query: this.query,
-      per_page: this.perPage,
       page: this.page,
     };
 

@@ -9,17 +9,15 @@ import { updateDataForLocalStorage } from './localStorage';
 import { changeColorBtnLibraryClick } from './colorButton';
 
 const containerLibraryElement = document.querySelector('.library-film_list');
+const alertInfo = document.querySelector('.library_alert');
 const buttonWatchEl = document.querySelector('button[data-watched]');
 const buttonQueueEl = document.querySelector('button[data-queue]');
+
 containerLibraryElement.addEventListener('click', onPosterClick);
-const alertInfo = document.querySelector('.library_alert');
 buttonWatchEl.addEventListener('click', onButtonWatchEl);
 buttonQueueEl.addEventListener('click', onButtonQueueEl);
 
-let cardsQuantity;
-if (window.innerWidth < 768) cardsQuantity = 4;
-else if (window.innerWidth < 1200) cardsQuantity = 8;
-else cardsQuantity = 9;
+const cardsQuantity = 6;
 
 const containerPagination = document.querySelector('.pagination');
 const paginationLibraryWatch = new Pagination(containerPagination, {
@@ -66,61 +64,25 @@ function onButtonQueueEl(event) {
 }
 
 function createMarkupWatchLocalStorage() {
-  containerLibraryElement.innerHTML = '';
-  alertInfo.innerHTML = '';
-
-  const arrayWatch = ls.load(`toWatch`);
-  const libEL = document.querySelector('.library_alert');
-  if (!arrayWatch || arrayWatch.length === 0) {
-    alertInfo.innerHTML = "You don't have watched films in your library";
-    containerPagination.remove();
-    return;
-  }
-
-  const arrayForRenderFirstPage = arrayWatch.slice(0, cardsQuantity);
-  renderLibraryMarkup(arrayForRenderFirstPage);
-
-  paginationLibraryWatch.reset(arrayWatch.length);
+  createMarkupFromLocalStorage(
+    'toWatch',
+    "You don't have watched films in your library"
+  );
 }
 
 function createMarkupQueueLocalStorage() {
-  containerLibraryElement.innerHTML = '';
-  alertInfo.innerHTML = '';
-
-  const arrayQueue = ls.load(`queue`);
-
-  if (!arrayQueue || arrayQueue.length === 0) {
-    alertInfo.innerHTML = "You don't have films in queue in your library";
-    containerPagination.remove();
-    return;
-  }
-
-  const arrayForRenderFirstPage = arrayQueue.slice(0, cardsQuantity);
-  renderLibraryMarkup(arrayForRenderFirstPage);
-
-  paginationLibraryQueue.reset(arrayQueue.length);
+  createMarkupFromLocalStorage(
+    'queue',
+    "You don't have films in queue in your library"
+  );
 }
 
 paginationLibraryWatch.on('afterMove', event => {
-  const currentPage = event.page;
-  alertInfo.innerHTML = '';
-  const arrayWatch = ls.load(`toWatch`);
-  const arrayForRenderCurrentPage = arrayWatch.slice(
-    (currentPage - 1) * cardsQuantity,
-    currentPage * cardsQuantity
-  );
-  renderLibraryMarkup(arrayForRenderCurrentPage);
+  renderMarkupForPaginationMove(event, 'toWatch');
 });
 
 paginationLibraryQueue.on('afterMove', event => {
-  const currentPage = event.page;
-  alertInfo.innerHTML = '';
-  const arrayQueue = ls.load(`queue`);
-  const arrayForRenderCurrentPage = arrayQueue.slice(
-    (currentPage - 1) * cardsQuantity,
-    currentPage * cardsQuantity
-  );
-  renderLibraryMarkup(arrayForRenderCurrentPage);
+  renderMarkupForPaginationMove(event, 'queue');
 });
 
 function renderLibraryMarkup(array) {
@@ -130,10 +92,45 @@ function renderLibraryMarkup(array) {
       .fetchMovieById(el)
       .then(data => {
         data.release_date = data.release_date.split('-')[0];
+        data.vote_average = data.vote_average.toFixed(1);
         markup += createLibraryCards(data);
         return markup;
       })
       .then(data => (containerLibraryElement.innerHTML = data))
       .catch(error => console.log(error));
   });
+}
+
+function createMarkupFromLocalStorage(key, message) {
+  containerPagination.style.display = 'flex';
+  containerLibraryElement.innerHTML = '';
+  alertInfo.innerHTML = '';
+
+  const arrayDataLocalStorage = ls.load(key);
+
+  if (!arrayDataLocalStorage || arrayDataLocalStorage.length === 0) {
+    alertInfo.innerHTML = message;
+    containerPagination.style.display = 'none';
+    return;
+  }
+
+  const arrayForRenderFirstPage = arrayDataLocalStorage.slice(0, cardsQuantity);
+  renderLibraryMarkup(arrayForRenderFirstPage);
+
+  if (key === 'toWatch') {
+    paginationLibraryWatch.reset(arrayDataLocalStorage.length);
+  } else {
+    paginationLibraryQueue.reset(arrayDataLocalStorage.length);
+  }
+}
+
+function renderMarkupForPaginationMove(event, key) {
+  const currentPage = event.page;
+  alertInfo.innerHTML = '';
+  const arrayDataLocalStorage = ls.load(key);
+  const arrayForRenderCurrentPage = arrayDataLocalStorage.slice(
+    (currentPage - 1) * cardsQuantity,
+    currentPage * cardsQuantity
+  );
+  renderLibraryMarkup(arrayForRenderCurrentPage);
 }

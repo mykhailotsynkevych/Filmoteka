@@ -3,7 +3,6 @@ import { galleryApi } from './randomFilms';
 export const createArrayOfGenres = () => {
   let newObject = {};
   galleryApi.fetchGenres().then(data => {
-    galleryApi.arrayOfGenres = data;
     data.forEach(el => {
       newObject[el.id] = el.name;
     });
